@@ -29,7 +29,7 @@
 ## Pre requisites
 1. [Node.js](https://nodejs.org/en/)
 2. [Docker](https://www.docker.com)
-3. [Nest.js](https://nestjs.com)
+3. [NestJS](https://nestjs.com)
 
 ## Installation
 
