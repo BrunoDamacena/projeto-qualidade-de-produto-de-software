@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -16,10 +16,13 @@ import { AppService } from './app.service';
       database: process.env.DB_DATABASE,
       autoLoadEntities: true,
       synchronize: false,
-      entities: ['src/**/*.entity.ts'],
-      migrations: ['src/database/migrations/*.ts'],
+      entities: ['dist/**/*.entity.js'],
+      migrations: ['dist/src/database/migrations/*.js'],
+      cli: {
+        migrationsDir: 'src/database/migrations',
+      },
       logging: ['error'],
-    }),
+    } as TypeOrmModuleOptions),
   ],
   controllers: [AppController],
   providers: [AppService],
