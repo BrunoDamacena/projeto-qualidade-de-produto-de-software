@@ -26,11 +26,28 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Pre requisites
+1. [Node.js](https://nodejs.org/en/)
+2. [Docker](https://www.docker.com)
+3. [NestJS](https://nestjs.com)
+
 ## Installation
 
+1. Copy `.env-example` to `.env` file (non-versioned) and fill in the required fields;
+2. Run 
+```bash
+$ docker-compose up -d mysql
+```
+to start the database service;
+3. After the database is up and running, run:
 ```bash
 $ yarn install
 ```
+to install the project dependencies, 
+```bash
+$ yarn build
+```
+to build the project.
 
 ## Running the app
 
@@ -43,6 +60,27 @@ $ yarn start:dev
 
 # production mode
 $ yarn start:prod
+```
+
+## Running with Docker
+
+```bash
+$ docker-compose up
+```
+
+## Migrations
+### Create Migrations
+```bash
+$ yarn typeorm migration:create -n {Migration Name}
+```
+
+### Run Migrations
+```bash
+# Up
+$ yarn typeorm migration:run
+
+#Down
+$ yarn typeorm migration:revert
 ```
 
 ## Test
