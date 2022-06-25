@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PacienteModule } from './paciente/paciente.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AppService } from './app.service';
       },
       logging: ['error'],
     } as TypeOrmModuleOptions),
+    PacienteModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,12 +5,12 @@ export class Paciente1654464594566 implements MigrationInterface {
     await queryRunner.query(
       `
                 CREATE TABLE IF NOT EXISTS pacientes (
-                    id VARCHAR(255) NOT NULL,
+                    id VARCHAR(255) NOT NULL UNIQUE,
                     nome VARCHAR(255) NOT NULL,
-                    cpf VARCHAR(255) NOT NULL,
+                    cpf VARCHAR(255) NOT NULL UNIQUE,
                     data_nascimento DATE,
                     sexo CHAR(1),
-                    enderecos_id VARCHAR(255) NOT NULL,
+                    enderecos_id VARCHAR(255),
                     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP NULL,
                     deleted_at TIMESTAMP NULL,
