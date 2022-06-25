@@ -1,14 +1,16 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
-  NotImplementedException,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
-import { PacienteRequest } from '../dtos/create-paciente-request.dto';
+import { CreatePacienteRequest } from '../dtos/create-paciente-request.dto';
+import { UpdatePacienteRequest } from '../dtos/update-paciente-request.dto';
 import { PacienteService } from '../services/paciente.service';
 
 @Controller('pacientes')
@@ -19,7 +21,7 @@ export class PacienteController {
   @HttpCode(HttpStatus.CREATED)
   async createPaciente(
     @Body()
-    pacienteRequest: PacienteRequest,
+    pacienteRequest: CreatePacienteRequest,
   ) {
     const pacienteId = await this.pacienteService.createPaciente(
       pacienteRequest,
@@ -35,5 +37,26 @@ export class PacienteController {
     const paciente = await this.pacienteService.getPaciente(id);
 
     return paciente;
+  }
+
+  @Patch(':id')
+  async updatePaciente(
+    @Param('id') id: string,
+    @Body()
+    pacienteRequest: UpdatePacienteRequest,
+  ) {
+    const pacienteId = await this.pacienteService.updatePaciente(
+      id,
+      pacienteRequest,
+    );
+    return {
+      id: pacienteId,
+    };
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deletePaciente(@Param('id') id: string) {
+    await this.pacienteService.deletePaciente(id);
   }
 }

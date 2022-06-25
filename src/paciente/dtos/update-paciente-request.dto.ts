@@ -1,10 +1,11 @@
-import { IsDateString, IsString } from 'class-validator';
+import { IsDateString, IsOptional, Length } from 'class-validator';
 import { IsCPF } from '../../utils/decorators/is-cpf.decorator';
 
-export class CreatePacienteRequest {
-  @IsString()
+export class UpdatePacienteRequest {
+  @IsOptional()
   nome: string;
 
+  @IsOptional()
   @IsDateString(
     { strict: true },
     {
@@ -14,6 +15,11 @@ export class CreatePacienteRequest {
   )
   dataDeNascimento: Date;
 
+  @IsOptional()
   @IsCPF()
   cpf: string;
+
+  @IsOptional()
+  @Length(1, 1)
+  sexo: string;
 }
