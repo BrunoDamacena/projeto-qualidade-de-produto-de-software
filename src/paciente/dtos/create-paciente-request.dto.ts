@@ -12,7 +12,7 @@ export class CreatePacienteRequest {
         'dataDeNascimento must be a valid date string, in the format YYYY-MM-DD',
     },
   )
-  dataDeNascimento: Date;
+  dataNascimento: Date;
 
   @IsCPF()
   cpf: string;

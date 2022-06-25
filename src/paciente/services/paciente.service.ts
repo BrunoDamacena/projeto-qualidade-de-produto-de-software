@@ -27,7 +27,7 @@ export class PacienteService {
         id: randomUUID(),
         nome: pacienteRequest.nome,
         cpf: pacienteRequest.cpf,
-        dataNascimento: pacienteRequest.dataDeNascimento,
+        dataNascimento: pacienteRequest.dataNascimento,
       } as Partial<Paciente>)
       .catch(e => {
         if (e.code === 'ER_DUP_ENTRY') {
