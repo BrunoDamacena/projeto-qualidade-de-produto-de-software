@@ -3,11 +3,11 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
 import { EnderecoService } from 'src/endereco/services/endereco.service';
+import { readOperationException } from 'src/utils/readOperationException';
 import { Repository } from 'typeorm';
 import { CreatePacienteRequest } from '../dtos/create-paciente-request.dto';
 import { UpdatePacienteRequest } from '../dtos/update-paciente-request.dto';
@@ -69,13 +69,13 @@ export class PacienteService {
 
   async deletePaciente(pacienteId: string): Promise<void> {
     this.pacienteRepository.softDelete(pacienteId).catch(e => {
-      throw new InternalServerErrorException(e);
+      throw new InternalServerErrorException();
     });
   }
 
   private async findPacienteById(pacienteId: string): Promise<Paciente> {
     return this.pacienteRepository.findOneOrFail(pacienteId).catch(e => {
-      throw new NotFoundException('Resource with ID was not found');
+      throw readOperationException(e);
     });
   }
 }
