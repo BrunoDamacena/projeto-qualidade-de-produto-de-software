@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
-import { Medico } from 'src/medico/entitites/medico.entity';
-import { Paciente } from 'src/paciente/entitites/paciente.entity';
-import { readOperationException } from 'src/utils/readOperationException';
+import { Medico } from '../../medico/entitites/medico.entity';
+import { Paciente } from '../../paciente/entitites/paciente.entity';
+import { readOperationException } from '../../utils/readOperationException';
 import { Repository } from 'typeorm';
 import { CreateExameDto } from '../dtos/create-exame.dto';
 import { UpdateExameDto } from '../dtos/update-exame.dto';

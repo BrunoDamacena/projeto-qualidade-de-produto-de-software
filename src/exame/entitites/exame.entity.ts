@@ -1,5 +1,5 @@
-import { Medico } from 'src/medico/entitites/medico.entity';
-import { Paciente } from 'src/paciente/entitites/paciente.entity';
+import { Medico } from '../../medico/entitites/medico.entity';
+import { Paciente } from '../../paciente/entitites/paciente.entity';
 import {
   Column,
   CreateDateColumn,

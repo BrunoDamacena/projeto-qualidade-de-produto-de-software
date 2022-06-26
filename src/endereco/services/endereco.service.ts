@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { randomUUID } from 'crypto';
-import { Endereco } from 'src/endereco/entities/endereco.entity';
+import { Endereco } from '../../endereco/entities/endereco.entity';
 import { Repository } from 'typeorm';
 import { EnderecoDto } from '../dtos/endereco.dto';
 

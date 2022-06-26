@@ -1,10 +1,5 @@
-import {
-  IsDateString,
-  IsObject,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-import { EnderecoDto } from 'src/endereco/dtos/endereco.dto';
+import { IsDateString, IsObject, IsString } from 'class-validator';
+import { EnderecoDto } from '../../endereco/dtos/endereco.dto';
 import { IsCPF } from '../../utils/decorators/is-cpf.decorator';
 
 export class CreatePacienteRequest {

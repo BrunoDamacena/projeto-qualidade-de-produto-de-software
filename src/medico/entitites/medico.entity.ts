@@ -1,4 +1,4 @@
-import { Exame } from 'src/exame/entitites/exame.entity';
+import { Exame } from '../../exame/entitites/exame.entity';
 import {
   Column,
   CreateDateColumn,

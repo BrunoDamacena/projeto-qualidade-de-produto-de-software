@@ -1,5 +1,5 @@
-import { Endereco } from 'src/endereco/entities/endereco.entity';
-import { Exame } from 'src/exame/entitites/exame.entity';
+import { Endereco } from '../../endereco/entities/endereco.entity';
+import { Exame } from '../../exame/entitites/exame.entity';
 import {
   Column,
   CreateDateColumn,

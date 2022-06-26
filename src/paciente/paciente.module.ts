@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnderecoModule } from 'src/endereco/endereco.module';
+import { EnderecoService } from 'src/endereco/services/endereco.service';
 import { PacienteController } from './controllers/paciente.controller';
 import { Paciente } from './entitites/paciente.entity';
 import { PacienteService } from './services/paciente.service';

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Paciente } from 'src/paciente/entitites/paciente.entity';
-import { readOperationException } from 'src/utils/readOperationException';
+import { Paciente } from '../../paciente/entitites/paciente.entity';
+import { readOperationException } from '../../utils/readOperationException';
 import { Repository } from 'typeorm';
 import { Exame } from '../entitites/exame.entity';
 
