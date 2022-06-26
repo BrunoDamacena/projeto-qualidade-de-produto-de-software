@@ -1,18 +1,23 @@
+import { Medico } from 'src/medico/entitites/medico.entity';
 import { Paciente } from 'src/paciente/entitites/paciente.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'exame' })
+@Entity({ name: 'exames' })
 export class Exame {
   @PrimaryColumn('uuid')
   id: string;
+
+  @Column()
+  tipo: string;
 
   @Column()
   resultado: string;
@@ -20,15 +25,12 @@ export class Exame {
   @Column()
   horario: Date;
 
-  @Column()
-  tipo: string;
+  @JoinColumn({ name: 'medicos_id' })
+  @ManyToOne(() => Medico, medico => medico.id)
+  medicoId: string;
 
-  /*@Column({ name: 'medico_id' })
-  @ManyToOne(() => Medico)
-  medicoId: string;*/
-
-  @Column({ name: 'paciente_id' })
-  @ManyToOne(() => Paciente)
+  @JoinColumn({ name: 'pacientes_id' })
+  @ManyToOne(() => Paciente, paciente => paciente.id)
   pacienteId: string;
 
   @CreateDateColumn({ name: 'created_at' })

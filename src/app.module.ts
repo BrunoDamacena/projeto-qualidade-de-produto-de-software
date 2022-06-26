@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ExameModule } from './exame/exame.module';
 import { MedicoModule } from './medico/medico.module';
 import { PacienteModule } from './paciente/paciente.module';
 
@@ -27,6 +28,7 @@ import { PacienteModule } from './paciente/paciente.module';
     } as TypeOrmModuleOptions),
     PacienteModule,
     MedicoModule,
+    ExameModule,
   ],
   controllers: [AppController],
   providers: [AppService],
