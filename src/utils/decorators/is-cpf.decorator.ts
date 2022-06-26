@@ -1,8 +1,5 @@
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
-const CPF_PATTERN = /^(\d{11}|\d{3}\.\d{3}\.\d{3}\-\d{2})$/;
-const NON_NUMERIC = /\D/g;
-
 function isValidCpf(cpf: string): boolean {
   const cpfNumbersOnly = cpf.replace(/[^\d]+/g, '');
   if (

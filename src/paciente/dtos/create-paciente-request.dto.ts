@@ -1,4 +1,10 @@
-import { IsDateString, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsObject,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { EnderecoDto } from 'src/endereco/dtos/endereco.dto';
 import { IsCPF } from '../../utils/decorators/is-cpf.decorator';
 
 export class CreatePacienteRequest {
@@ -9,10 +15,13 @@ export class CreatePacienteRequest {
     { strict: true },
     {
       message:
-        'dataDeNascimento must be a valid date string, in the format YYYY-MM-DD',
+        'dataNascimento must be a valid date string, in the format YYYY-MM-DD',
     },
   )
   dataNascimento: Date;
+
+  @IsObject()
+  endereco: EnderecoDto;
 
   @IsCPF()
   cpf: string;

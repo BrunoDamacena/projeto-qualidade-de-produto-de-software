@@ -3,10 +3,11 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
+import { EnderecoService } from 'src/endereco/services/endereco.service';
+import { readOperationException } from 'src/utils/readOperationException';
 import { Repository } from 'typeorm';
 import { CreatePacienteRequest } from '../dtos/create-paciente-request.dto';
 import { UpdatePacienteRequest } from '../dtos/update-paciente-request.dto';
@@ -17,17 +18,23 @@ export class PacienteService {
   constructor(
     @InjectRepository(Paciente)
     private pacienteRepository: Repository<Paciente>,
+    private enderecoService: EnderecoService,
   ) {}
 
   async createPaciente(
     pacienteRequest: CreatePacienteRequest,
   ): Promise<string> {
+    const enderecoId = await this.enderecoService.createEndereco(
+      pacienteRequest.endereco,
+    );
+
     const paciente = await this.pacienteRepository
       .save({
         id: randomUUID(),
         nome: pacienteRequest.nome,
         cpf: pacienteRequest.cpf,
         dataNascimento: pacienteRequest.dataNascimento,
+        enderecoId,
       } as Partial<Paciente>)
       .catch(e => {
         if (e.code === 'ER_DUP_ENTRY') {
@@ -62,13 +69,13 @@ export class PacienteService {
 
   async deletePaciente(pacienteId: string): Promise<void> {
     this.pacienteRepository.softDelete(pacienteId).catch(e => {
-      throw new InternalServerErrorException(e);
+      throw new InternalServerErrorException();
     });
   }
 
   private async findPacienteById(pacienteId: string): Promise<Paciente> {
     return this.pacienteRepository.findOneOrFail(pacienteId).catch(e => {
-      throw new NotFoundException('Resource with ID was not found');
+      throw readOperationException(e);
     });
   }
 }

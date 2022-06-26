@@ -1,4 +1,4 @@
-import { Endereco } from 'src/utils/entities/endereco.entity';
+import { Endereco } from 'src/endereco/entities/endereco.entity';
 import {
   Column,
   CreateDateColumn,
@@ -25,6 +25,10 @@ export class Paciente {
 
   @Column()
   sexo: string;
+
+  @Column({ name: 'enderecos_id' })
+  @OneToOne(() => Endereco)
+  enderecoId: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
