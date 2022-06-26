@@ -1,8 +1,10 @@
+import { Exame } from '../../exame/entitites/exame.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,6 +25,9 @@ export class Medico {
 
   @Column()
   especializacao: string;
+
+  @OneToMany(() => Exame, exame => exame.medicoId)
+  exame: Exame[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

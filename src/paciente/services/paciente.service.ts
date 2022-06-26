@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
-import { EnderecoService } from 'src/endereco/services/endereco.service';
-import { readOperationException } from 'src/utils/readOperationException';
+import { EnderecoService } from '../../endereco/services/endereco.service';
+import { readOperationException } from '../../utils/readOperationException';
 import { Repository } from 'typeorm';
 import { CreatePacienteRequest } from '../dtos/create-paciente-request.dto';
 import { UpdatePacienteRequest } from '../dtos/update-paciente-request.dto';

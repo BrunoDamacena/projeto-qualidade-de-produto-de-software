@@ -1,24 +1,35 @@
-import { ConflictException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
+import { Endereco } from '../../endereco/entities/endereco.entity';
 import { EntityNotFoundError } from 'typeorm';
 import { CreatePacienteRequest } from '../dtos/create-paciente-request.dto';
 import { UpdatePacienteRequest } from '../dtos/update-paciente-request.dto';
 import { Paciente } from '../entitites/paciente.entity';
 import { PacienteService } from '../services/paciente.service';
+import { EnderecoService } from '../../endereco/services/endereco.service';
 
 describe('PacienteService', () => {
   let service: PacienteService;
 
   const pacienteId = randomUUID();
 
-  const mockPaciente: Partial<Paciente> = {
+  const endereco = {
+    rua: 'Rua da Paz',
+    numero: 5576,
+    bairro: 'Planalto',
+    cidade: 'Serra',
+    estado: 'Espirito Santo',
+    cep: '69944-213',
+  };
+
+  const mockPaciente = {
     id: pacienteId,
     nome: 'John Doe',
     cpf: '40133739040',
     dataNascimento: new Date(),
-  };
+    endereco,
+  } as unknown;
 
   const mockPacienteRepo = {
     save: jest.fn(),
@@ -27,13 +38,22 @@ describe('PacienteService', () => {
     softDelete: jest.fn(),
   };
 
+  const mockEnderecoRepo = {
+    save: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         PacienteService,
+        EnderecoService,
         {
           provide: getRepositoryToken(Paciente),
           useValue: mockPacienteRepo,
+        },
+        {
+          provide: getRepositoryToken(Endereco),
+          useValue: mockEnderecoRepo,
         },
       ],
     }).compile();
@@ -48,6 +68,10 @@ describe('PacienteService', () => {
   describe('Create Partner', () => {
     it('should create a partner successfully', async () => {
       jest.spyOn(mockPacienteRepo, 'save').mockResolvedValueOnce(mockPaciente);
+      jest.spyOn(mockEnderecoRepo, 'save').mockResolvedValueOnce({
+        id: randomUUID(),
+        ...endereco,
+      });
       const response = await service.createPaciente(
         mockPaciente as CreatePacienteRequest,
       );
@@ -80,7 +104,7 @@ describe('PacienteService', () => {
         .spyOn(mockPacienteRepo, 'findOneOrFail')
         .mockRejectedValueOnce(new EntityNotFoundError(Paciente, 'id'));
       await expect(service.getPaciente(pacienteId)).rejects.toThrow(
-        'Resource with ID was not found',
+        'Resource not found',
       );
     });
   });
@@ -109,7 +133,7 @@ describe('PacienteService', () => {
           pacienteId,
           mockPaciente as UpdatePacienteRequest,
         ),
-      ).rejects.toThrow('Resource with ID was not found');
+      ).rejects.toThrow('Resource not found');
     });
   });
 

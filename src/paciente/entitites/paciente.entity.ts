@@ -1,9 +1,11 @@
-import { Endereco } from 'src/endereco/entities/endereco.entity';
+import { Endereco } from '../../endereco/entities/endereco.entity';
+import { Exame } from '../../exame/entitites/exame.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -29,6 +31,9 @@ export class Paciente {
   @Column({ name: 'enderecos_id' })
   @OneToOne(() => Endereco)
   enderecoId: string;
+
+  @OneToMany(() => Exame, exame => exame.medicoId)
+  exame: Exame[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
