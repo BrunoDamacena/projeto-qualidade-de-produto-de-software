@@ -18,13 +18,13 @@ export class Medico {
   nome: string;
 
   @Column()
-  cpf: string;
+  crm: string;
 
   @Column({ name: 'data_nascimento' })
   dataNascimento: Date;
 
   @Column()
-  sexo: string;
+  especializacao: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
