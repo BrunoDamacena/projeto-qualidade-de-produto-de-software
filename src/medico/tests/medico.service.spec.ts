@@ -16,8 +16,9 @@ describe('MedicoService', () => {
   const mockMedico: Partial<Medico> = {
     id: medicoId,
     nome: 'John Doe',
-    cpf: '40133739040',
+    crm: '40133739040',
     dataNascimento: new Date(),
+    especializacao: 'cardiologia',
   };
 
   const mockMedicoRepo = {
@@ -45,8 +46,8 @@ describe('MedicoService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('Create Partner', () => {
-    it('should create a partner successfully', async () => {
+  describe('Create medico', () => {
+    it('should create a medico successfully', async () => {
       jest.spyOn(mockMedicoRepo, 'save').mockResolvedValueOnce(mockMedico);
       const response = await service.createMedico(
         mockMedico as CreateMedicoRequest,
@@ -54,20 +55,20 @@ describe('MedicoService', () => {
       expect(response).toEqual(medicoId);
     });
 
-    it('should fail to create a partner because of duplicate CPF', async () => {
+    it('should fail to create a medico because of duplicate crm', async () => {
       jest
         .spyOn(mockMedicoRepo, 'save')
         .mockRejectedValueOnce({ code: 'ER_DUP_ENTRY' });
       await expect(
         service.createMedico(mockMedico as CreateMedicoRequest),
       ).rejects.toThrow(
-        'There is already a patient registered with this CPF number',
+        'There is already a medic registered with this CRM number',
       );
     });
   });
 
-  describe('Get Partner', () => {
-    it('should get a partner successfully', async () => {
+  describe('Get medico', () => {
+    it('should get a medico successfully', async () => {
       jest
         .spyOn(mockMedicoRepo, 'findOneOrFail')
         .mockResolvedValueOnce(mockMedico);
@@ -75,18 +76,18 @@ describe('MedicoService', () => {
       expect(response).toEqual(mockMedico);
     });
 
-    it('should fail to get a partner if it doesnt exists', async () => {
+    it('should fail to get a medico if it doesnt exists', async () => {
       jest
         .spyOn(mockMedicoRepo, 'findOneOrFail')
         .mockRejectedValueOnce(new EntityNotFoundError(Medico, 'id'));
       await expect(service.getMedico(medicoId)).rejects.toThrow(
-        'Resource with ID was not found',
+        'Resource not found',
       );
     });
   });
 
-  describe('Update Partner', () => {
-    it('should update a partner successfully', async () => {
+  describe('Update medico', () => {
+    it('should update a medico successfully', async () => {
       jest
         .spyOn(mockMedicoRepo, 'findOneOrFail')
         .mockResolvedValueOnce(mockMedico);
@@ -100,18 +101,18 @@ describe('MedicoService', () => {
       expect(response).toEqual(medicoId);
     });
 
-    it('should fail to update a partner if not exists', async () => {
+    it('should fail to update a medico if not exists', async () => {
       jest
         .spyOn(mockMedicoRepo, 'findOneOrFail')
         .mockRejectedValueOnce(new EntityNotFoundError(Medico, 'id'));
       await expect(
         service.updateMedico(medicoId, mockMedico as UpdateMedicoRequest),
-      ).rejects.toThrow('Resource with ID was not found');
+      ).rejects.toThrow('Resource not found');
     });
   });
 
-  describe('Delete Partner', () => {
-    it('should delete a partner successfully', async () => {
+  describe('Delete medico', () => {
+    it('should delete a medico successfully', async () => {
       jest
         .spyOn(mockMedicoRepo, 'softDelete')
         .mockImplementationOnce(() => Promise.resolve());

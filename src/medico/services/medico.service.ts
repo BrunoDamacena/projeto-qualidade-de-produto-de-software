@@ -3,11 +3,10 @@ import {
   ConflictException,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
-import { readOperationException } from 'src/utils/readOperationException';
+import { readOperationException } from '../../utils/readOperationException';
 import { Repository } from 'typeorm';
 import { CreateMedicoRequest } from '../dtos/create-medico-request.dto';
 import { UpdateMedicoRequest } from '../dtos/update-medico-request.dto';
@@ -30,7 +29,12 @@ export class MedicoService {
         especializacao: medicoRequest.especializacao,
       } as Partial<Medico>)
       .catch(e => {
-        throw readOperationException(e);
+        if (e.code === 'ER_DUP_ENTRY') {
+          throw new ConflictException(
+            'There is already a medic registered with this CRM number',
+          );
+        }
+        throw new InternalServerErrorException();
       });
 
     return medico.id;
@@ -63,7 +67,7 @@ export class MedicoService {
 
   private async findMedicoById(medicoId: string): Promise<Medico> {
     return this.medicoRepository.findOneOrFail(medicoId).catch(e => {
-      throw new NotFoundException('Resource with ID was not found');
+      throw readOperationException(e);
     });
   }
 }
