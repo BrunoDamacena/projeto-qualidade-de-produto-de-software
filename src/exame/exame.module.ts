@@ -6,10 +6,11 @@ import { MedicoExameController } from './controllers/medico-exame.controller';
 import { PacienteExameController } from './controllers/paciente-exame.controller';
 import { Exame } from './entitites/exame.entity';
 import { MedicoExameService } from './services/medico-exame.service';
+import { PacienteExameService } from './services/paciente-exame.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Exame, Medico, Paciente])],
   controllers: [MedicoExameController, PacienteExameController],
-  providers: [MedicoExameService],
+  providers: [MedicoExameService, PacienteExameService],
 })
 export class ExameModule {}
