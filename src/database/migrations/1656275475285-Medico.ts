@@ -13,7 +13,7 @@ export class Medico1656275475285 implements MigrationInterface {
                             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                             updated_at TIMESTAMP NULL,
                             deleted_at TIMESTAMP NULL,
-                            PRIMARY KEY (id),
+                            PRIMARY KEY (id)
                         ) ENGINE = InnoDB;
                     `,
     );
