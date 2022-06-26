@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
+import { readOperationException } from 'src/utils/readOperationException';
 import { Repository } from 'typeorm';
 import { CreateMedicoRequest } from '../dtos/create-medico-request.dto';
 import { UpdateMedicoRequest } from '../dtos/update-medico-request.dto';
@@ -24,16 +25,12 @@ export class MedicoService {
       .save({
         id: randomUUID(),
         nome: medicoRequest.nome,
-        cpf: medicoRequest.cpf,
+        crm: medicoRequest.crm,
         dataNascimento: medicoRequest.dataNascimento,
+        especializacao: medicoRequest.especializacao,
       } as Partial<Medico>)
       .catch(e => {
-        if (e.code === 'ER_DUP_ENTRY') {
-          throw new ConflictException(
-            'There is already a patient registered with this CPF number',
-          );
-        }
-        throw new InternalServerErrorException();
+        throw readOperationException(e);
       });
 
     return medico.id;

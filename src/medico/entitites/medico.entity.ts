@@ -1,10 +1,8 @@
-import { Endereco } from 'src/utils/entities/endereco.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';

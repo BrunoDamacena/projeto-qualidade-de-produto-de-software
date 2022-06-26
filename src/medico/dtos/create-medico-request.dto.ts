@@ -14,6 +14,9 @@ export class CreateMedicoRequest {
   )
   dataNascimento: Date;
 
-  @IsCPF()
-  cpf: string;
+  @IsString()
+  crm: string;
+
+  @IsString()
+  especializacao: string;
 }

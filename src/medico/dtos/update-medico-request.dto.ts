@@ -16,10 +16,8 @@ export class UpdateMedicoRequest {
   dataDeNascimento: Date;
 
   @IsOptional()
-  @IsCPF()
-  cpf: string;
+  crm: string;
 
   @IsOptional()
-  @Length(1, 1)
-  sexo: string;
+  especializacao: string;
 }
